@@ -7,19 +7,20 @@ import reportWebVitals from './reportWebVitals'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { ConfigProvider, theme } from 'antd'
+import { Auth } from './features/auth/Auth'
 
 const container = document.getElementById('root')!
 const root = createRoot(container)
 
-
-
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ConfigProvider theme={{algorithm: theme.darkAlgorithm}}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+      <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
+        <Auth>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Auth>
       </ConfigProvider>
     </Provider>
   </React.StrictMode>

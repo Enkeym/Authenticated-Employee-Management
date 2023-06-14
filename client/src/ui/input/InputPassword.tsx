@@ -1,52 +1,54 @@
-import { Form, Input as AntInput } from 'antd'
-import { NamePath } from 'antd/es/form/interface'
+import { Form, Input } from "antd";
+import { NamePath } from "antd/es/form/interface";
 
-type PasswordType = {
-  name: string
-  placeholder: string
-  dependencies?: NamePath[] | undefined
-
-}
-
-//4:09
+type Props = {
+  name: string;
+  placeholder: string;
+  dependencies?: NamePath[];
+};
 
 export const InputPassword = ({
   name,
   placeholder,
-  dependencies
-}: PasswordType) => {
+  dependencies,
+}: Props) => {
   return (
     <Form.Item
+      name={name}
       dependencies={dependencies}
       hasFeedback
-      name={name}
       rules={[
-        { required: true, message: 'Обязательное поле' },
+        {
+          required: true,
+          message: "Обязательное поле",
+        },
         ({ getFieldValue }) => ({
           validator(_, value) {
-            if (!value) {
-              return Promise.resolve()
+            if (!value ) {
+              return Promise.resolve();
             }
 
             if (name === 'confirmPassword') {
-              if (!value || getFieldValue('password') === 'value') {
-                return Promise.resolve()
+              if (!value || getFieldValue("password") === value) {
+                return Promise.resolve();
               }
-
-              return Promise.reject(new Error('Пароль должен совпадать'))
+              return Promise.reject(
+                new Error("Пароли должны совпадать")
+              );
             } else {
               if (value.length < 6) {
                 return Promise.reject(
-                  new Error('Пароль должен быть длиннее 6-ти символов')
-                )
+                  new Error("Пароль должен быть длиннее 6-ти символов")
+                );
               }
-              return Promise.resolve()
+
+              return Promise.resolve();
             }
-          }
-        })
+          },
+        }),
       ]}
     >
-      <AntInput.Password placeholder={placeholder} size='large' />
+      <Input.Password placeholder={placeholder} size="large" />
     </Form.Item>
-  )
-}
+  );
+};
